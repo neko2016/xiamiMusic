@@ -10,7 +10,10 @@ import stat
 from xiamiHttp import XiamiHttp
 from xiamiParse import XiamiParser
 
-
+# TODO GUI界面
+# TODO 分离配置文件
+# TODO 多线程下载
+# TODO 下载专辑
 class XiaMi(object):
     """  下载主要入口，处理用户输入，提供开发者api接口
 
