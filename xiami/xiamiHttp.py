@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
+
+""" 网络处理模块，发送请求json数据请求和发送下载请求下载文件
+"""
+
 __author__ = 'ghost'
 
-
-# -*- coding: utf-8 -*-
-__author__ = 'ghost'
-
-import urllib
-import urllib2
 import json
 import sys
 import time
+import urllib
+import urllib2
+
 
 class XiamiHttp(object):
-
-    def __init__(self):
-        pass
+    """ 网络处理类，发送请求json数据请求和发送下载请求下载文件
+    """
 
     @staticmethod
     def send_request(url, timeout=10):
@@ -101,5 +101,9 @@ class XiamiHttp(object):
         urllib.urlretrieve(file_url, file_name, XiamiHttp._schedule)
 
 if __name__ == '__main__':
-    app = XiamiHttp()
+
     url = 'http://www.xiami.com/song/playlist/id/1773346501/object_name/default/object_id/0/cat/json'
+    res = XiamiHttp.send_request(url)
+    print res
+    d = XiamiHttp.get_res_json(res)
+    print d
