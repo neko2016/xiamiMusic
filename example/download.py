@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
-__author__ = 'ghost'
+__author__ = 'rsj217'
 
-import sys
-sys.path.append('..')
 
-from xiami.xiami import XiaMi
+from xiami import XiaMi
 
 app = XiaMi(__file__)
-
 
 if __name__ == '__main__':
     app.start()

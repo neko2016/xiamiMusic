@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'ghost'
+
+__author__ = 'rsj217'
 
 import urllib2
 

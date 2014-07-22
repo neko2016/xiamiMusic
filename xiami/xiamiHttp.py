@@ -3,7 +3,7 @@
 """ 网络处理模块，发送请求json数据请求和发送下载请求下载文件
 """
 
-__author__ = 'ghost'
+__author__ = 'rsj217'
 
 import json
 import sys
@@ -85,7 +85,7 @@ class XiamiHttp(object):
         # 百分比修正
         if percent > 100:
             percent = 100
-        sys.stdout.write('Downloaded %0.2f of  %0.2f M , speed %d KB/s , %d seconds passed  ( %0.2f%% )\r' % (
+        sys.stdout.write('Downloaded %0.2f of  %0.2f M , speed %d KB/s , %d seconds passed  ( %0.2f%% )\n\r' % (
                                                                     float(downloaded_size) / (1024 ** 2),
                                                                     float(total_chunk_size) / (1024 ** 2),
                                                                     speed,
