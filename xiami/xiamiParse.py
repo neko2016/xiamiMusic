@@ -3,6 +3,7 @@ __author__ = 'ghost'
 
 import urllib2
 
+
 class XiamiParser(object):
 
 

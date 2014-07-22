@@ -19,7 +19,7 @@ class XiaMi(object):
 
     """
 
-    def __init__(self):
+    def __init__(self, file):
         """ 初始化下载类型
         """
         self.category = {
@@ -27,6 +27,9 @@ class XiaMi(object):
             'lyric': ('lyric', 'Irc'),
             'picture': ('pic', 'jpg')
         }
+
+        self._curdir = os.path.dirname(file)
+        self._downdir = os.path.join(self._curdir, 'download')
 
     def start(self):
         """ 下载入口
@@ -120,14 +123,17 @@ class XiaMi(object):
         extension_name = entry[1]
         req_url = self.song_info.get(entry[0])
         # 目录名
-        directory_name = 'download/{directory_name}'.format(directory_name=file_name)
+        download_directory = os.path.join(self._downdir, file_name)
         # 检查新建目录
-        self._checkout_directory(directory_name)
+        self._checkout_directory(download_directory)
+        filename = os.path.join(download_directory, file_name)
+
         # 保存的文件完整路径
-        filename = '{directory_name}/{file_name}.{extension_name}'.\
-            format(directory_name=directory_name, file_name=file_name, extension_name=extension_name)
+        file_name = '{filename}.{extension_name}'.\
+            format(filename=filename, extension_name=extension_name)
+
         # 下载并保存文件
-        XiamiHttp.save(req_url, filename)
+        XiamiHttp.save(req_url, file_name)
 
 if __name__ == '__main__':
     url = 'http://www.xiami.com/song/1773346501?spm=a1z1s.3521865.23309997.1.254APJ'
