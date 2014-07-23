@@ -32,7 +32,7 @@ class XiaMi(object):
         self._curdir = os.path.dirname(file)
         self._downdir = os.path.join(self._curdir, 'download')
 
-    def start(self):
+    def run(self):
         """ 下载入口
         """
         # 处理用户输入，提取歌曲id

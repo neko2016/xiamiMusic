@@ -6,6 +6,9 @@ from xiami import XiaMi
 
 app = XiaMi(__file__)
 
-if __name__ == '__main__':
+def main():
     app.get_input()
-    app.start()
+    app.run()
+
+if __name__ == '__main__':
+    main()
