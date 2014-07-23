@@ -7,4 +7,5 @@ from xiami import XiaMi
 app = XiaMi(__file__)
 
 if __name__ == '__main__':
+    app.get_input()
     app.start()

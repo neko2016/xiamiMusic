@@ -58,15 +58,23 @@ class XiaMi(object):
         self._download('picture')
         sys.stdout.write('####### download completed ####### \r')
 
+    def get_input(self):
+        """  处理用户输入
+        """
+        self.str_input = raw_input("Please Enter The Song Url: ", )
+
     def _get_song_id_from_input(self):
         """  处理用户输入，提取歌曲id
         Return:
             song_id: 歌曲id
         """
-        song_url = raw_input("Please enter the song url: ", )
         pattren = re.compile(r'/(\d+)\?')
-        song_id = re.search(pattren, song_url).group(1)
+        if self.str_input:
+            song_id = re.search(pattren, self.str_input).group(1)
+        else:
+            raise StandardError(u'Input Url Error')
         return song_id
+
 
     def _get_song_request_url(self, song_id):
         """  获取请求json数据的url
