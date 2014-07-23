@@ -96,13 +96,18 @@ class XiamiHttp(object):
                                                                     duration,
                                                                     percent))
     @classmethod
-    def save(cls, file_url, file_name):
+    def save(cls, file_url, file_name, callback=None):
         """ 使用 `urllib.urlretrieve` 下载文件
         Args:
             :param file_url: 下载文件的`url`地址
             :param file_name: 保存在本地的文件名
         """
-        urllib.urlretrieve(file_url, file_name, cls._schedule)
+        if callback:
+            callback_method = callback
+        else:
+            callback_method = cls._schedule
+
+        urllib.urlretrieve(file_url, file_name, callback_method)
 
 if __name__ == '__main__':
 

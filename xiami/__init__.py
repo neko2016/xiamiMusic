@@ -67,6 +67,46 @@ class XiaMi(object):
         self._download('picture')
         sys.stdout.write('####### download completed ####### \n\n')
 
+    def start(self, input_url):
+        """ 下载入口
+        """
+        # 处理用户输入，提取歌曲id
+        self.song_id = self._get_song_id_from_input(input_url)
+        if self.song_id:
+            # 通过歌曲id，获取请求json数据的url
+            self.request_url = self._get_song_request_url(self.song_id)
+        else:
+            return
+
+        try:
+            # 通过请求json的url地址，得到json数据
+            self.song_json = self._get_song_json(self.request_url)
+        except Exception, e:
+            raise e
+            return
+        # 解析json数据，获得歌曲信息
+        self.song_info = self._get_song_info(self.song_json)
+
+    def download_mp3(self):
+        # 开始下载
+        # 下载音频
+        sys.stdout.write('####### start download mp3 ####### \n\n')
+        self._download('mp3')
+        sys.stdout.write('####### download completed ####### \n\n')
+
+    def download_lyric(self):
+
+        # 下载歌词
+        sys.stdout.write('####### start download lyric ####### \n\n')
+        self._download('lyric')
+        sys.stdout.write('####### download completed ####### \n\n')
+
+    def download_pic(self):
+        # 下载专辑图片
+        sys.stdout.write('####### start download pic ####### \n\n')
+        self._download('picture')
+        sys.stdout.write('####### download completed ####### \n\n')
+
     def get_input(self):
         """  处理用户输入
         Return:
