@@ -55,17 +55,17 @@ class XiaMi(object):
 
         # 开始下载
         # 下载音频
-        sys.stdout.write('####### start download mp3 ####### \r')
+        sys.stdout.write('####### start download mp3 ####### \n\n')
         self._download('mp3')
-        sys.stdout.write('####### download completed ####### \r')
+        sys.stdout.write('####### download completed ####### \n\n')
         # 下载歌词
-        sys.stdout.write('####### start download lyric ####### \r')
+        sys.stdout.write('####### start download lyric ####### \n\n')
         self._download('lyric')
-        sys.stdout.write('####### download completed ####### \r')
+        sys.stdout.write('####### download completed ####### \n\n')
         # 下载专辑图片
-        sys.stdout.write('####### start download pic ####### \r')
+        sys.stdout.write('####### start download pic ####### \n\n')
         self._download('picture')
-        sys.stdout.write('####### download completed ####### \r')
+        sys.stdout.write('####### download completed ####### \n\n')
 
     def get_input(self):
         """  处理用户输入

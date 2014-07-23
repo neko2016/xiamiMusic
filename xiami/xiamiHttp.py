@@ -58,8 +58,8 @@ class XiamiHttp(object):
         d = json.load(res)
         return d
 
-    @staticmethod
-    def _schedule(downloaded_chunk_count, chunk_size, total_chunk_size):
+    @classmethod
+    def _schedule(cls, downloaded_chunk_count, chunk_size, total_chunk_size):
         """ 显示下载进度条的函数
         Args:
             :param downloaded_chunk: 已经下载的数据库块（chunk）
@@ -67,14 +67,17 @@ class XiamiHttp(object):
             :param total_chunk_size: 数据块的总大小
         """
         # 定义下载开始时间
-        global start_time
+        # global start_time
+
         if downloaded_chunk_count == 0:
-            start_time = time.time()
+            # start_time = time.time()
+            cls.start_time = time.time()
             return
         # 已下载总大小
         downloaded_size = downloaded_chunk_count * chunk_size
         # 下载所耗费的时间
-        duration = time.time() - start_time
+        # duration = time.time() - start_time
+        duration = time.time() - cls.start_time
         try:
             # 下载的平均速度
             speed = downloaded_size / (1024 * duration)
@@ -91,19 +94,20 @@ class XiamiHttp(object):
                                                                     speed,
                                                                     duration,
                                                                     percent))
-    @staticmethod
-    def save(file_url, file_name):
+    @classmethod
+    def save(cls, file_url, file_name):
         """ 使用 `urllib.urlretrieve` 下载文件
         Args:
             :param file_url: 下载文件的`url`地址
             :param file_name: 保存在本地的文件名
         """
-        urllib.urlretrieve(file_url, file_name, XiamiHttp._schedule)
+        urllib.urlretrieve(file_url, file_name, cls._schedule)
 
 if __name__ == '__main__':
 
-    url = 'http://www.xiami.com/song/playlist/id/1773346501/object_name/default/object_id/0/cat/json'
-    res = XiamiHttp.send_request(url)
-    print res
-    d = XiamiHttp.get_res_json(res)
-    print d
+    # url = 'http://www.xiami.com/song/playlist/id/1773346501/object_name/default/object_id/0/cat/json'
+    # res = XiamiHttp.send_request(url)
+    # print res
+    # d = XiamiHttp.get_res_json(res)
+    # print d
+    XiamiHttp.save('http://m5.file.xiami.com/778/778/1602302708/1773346501_15566694_l.mp3?auth_key=72c54751a630040fc2c9002682216f36-1406160000-0-null', 'new.mp3')
