@@ -33,15 +33,23 @@ class XiaMi(object):
         self._curdir = os.path.dirname(file)
         self._downdir = os.path.join(self._curdir, 'download')
 
-    def run(self):
+    def run(self, input_url):
         """ 下载入口
         """
         # 处理用户输入，提取歌曲id
-        self.song_id = self._get_song_id_from_input()
-        # 通过歌曲id，获取请求json数据的url
-        self.request_url = self._get_song_request_url(self.song_id)
-        # 通过请求json的url地址，得到json数据
-        self.song_json = self._get_song_json(self.request_url)
+        self.song_id = self._get_song_id_from_input(input_url)
+        if self.song_id:
+            # 通过歌曲id，获取请求json数据的url
+            self.request_url = self._get_song_request_url(self.song_id)
+        else:
+            return
+
+        try:
+            # 通过请求json的url地址，得到json数据
+            self.song_json = self._get_song_json(self.request_url)
+        except Exception, e:
+            raise e
+            return
         # 解析json数据，获得歌曲信息
         self.song_info = self._get_song_info(self.song_json)
 
@@ -61,17 +69,24 @@ class XiaMi(object):
 
     def get_input(self):
         """  处理用户输入
+        Return:
+            返回用户输入的url
         """
-        self.str_input = raw_input("Please Enter The Song Url: ", )
+        input_url = raw_input("Please Enter The Song Url: ", )
+        return input_url
 
-    def _get_song_id_from_input(self):
+    def _get_song_id_from_input(self, input_url):
         """  处理用户输入，提取歌曲id
         Return:
             song_id: 歌曲id
         """
         pattren = re.compile(r'/(\d+)\?')
-        if self.str_input:
-            song_id = re.search(pattren, self.str_input).group(1)
+        if input_url:
+            try:
+                song_id = re.search(pattren, input_url).group(1)
+            except Exception, e:
+                print '---- Please Enter A Right Url ----'
+                return False
         else:
             raise StandardError(u'Input Url Error')
         return song_id
