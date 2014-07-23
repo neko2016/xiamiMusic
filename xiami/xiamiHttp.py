@@ -66,17 +66,14 @@ class XiamiHttp(object):
             :param chunk_size: 数据块的大小
             :param total_chunk_size: 数据块的总大小
         """
-        # 定义下载开始时间
-        # global start_time
 
+        # 定义下载开始时间
         if downloaded_chunk_count == 0:
-            # start_time = time.time()
             cls.start_time = time.time()
             return
         # 已下载总大小
         downloaded_size = downloaded_chunk_count * chunk_size
         # 下载所耗费的时间
-        # duration = time.time() - start_time
         duration = time.time() - cls.start_time
         try:
             # 下载的平均速度
@@ -88,9 +85,13 @@ class XiamiHttp(object):
         # 百分比修正
         if percent > 100:
             percent = 100
+
+        cls.downloaded = round(float(downloaded_size) / (1024 ** 2), 2)
+        cls.total = round(float(total_chunk_size) / (1024 ** 2), 2)
+
         sys.stdout.write('Downloaded %0.2f of  %0.2f M , speed %d KB/s , %d seconds passed  ( %0.2f%% )\n\r' % (
-                                                                    float(downloaded_size) / (1024 ** 2),
-                                                                    float(total_chunk_size) / (1024 ** 2),
+                                                                    cls.downloaded,
+                                                                    cls.total,
                                                                     speed,
                                                                     duration,
                                                                     percent))
@@ -111,3 +112,4 @@ if __name__ == '__main__':
     # d = XiamiHttp.get_res_json(res)
     # print d
     XiamiHttp.save('http://m5.file.xiami.com/778/778/1602302708/1773346501_15566694_l.mp3?auth_key=72c54751a630040fc2c9002682216f36-1406160000-0-null', 'new.mp3')
+
