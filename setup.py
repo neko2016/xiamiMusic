@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='xiami',
-    version='0.0.1',
+    version='0.0.2',
     keywords = ('xiami', 'music', 'download'),
     description='This is a xiami music download clinet',
     license = 'MIT License',
