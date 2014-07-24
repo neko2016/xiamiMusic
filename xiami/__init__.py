@@ -88,24 +88,21 @@ class XiaMi(object):
         self.song_info = self._get_song_info(self.song_json)
 
     def download_mp3(self, download_call=None):
-        # 开始下载
         # 下载音频
-        sys.stdout.write('####### start download mp3 ####### \n\n')
-        self._download('mp3', download_call)
-        sys.stdout.write('####### download completed ####### \n\n')
+        download_info = self._download('mp3', download_call)
+        return download_info
 
     def download_lyric(self, download_call=None):
 
         # 下载歌词
-        sys.stdout.write('####### start download lyric ####### \n\n')
-        self._download('lyric', download_call)
-        sys.stdout.write('####### download completed ####### \n\n')
+
+        download_info = self._download('lyric', download_call)
+        return download_info
 
     def download_pic(self, download_call=None):
         # 下载专辑图片
-        sys.stdout.write('####### start download pic ####### \n\n')
-        self._download('picture', download_call)
-        sys.stdout.write('####### download completed ####### \n\n')
+        download_info = self._download('picture', download_call)
+        return download_info
 
     def get_input(self):
         """  处理用户输入
@@ -125,7 +122,7 @@ class XiaMi(object):
             try:
                 song_id = re.search(pattren, input_url).group(1)
             except Exception, e:
-                print '---- Please Enter A Correct Url ----'
+                raise StandardError('---- Please Enter A Correct Url ----')
                 return False
         else:
             raise StandardError(u'Input Url Error')
@@ -197,7 +194,8 @@ class XiaMi(object):
             format(filename=filename, extension_name=extension_name)
 
         # 下载并保存文件
-        XiamiHttp.save(req_url, file_name, download_call)
+        download_info = XiamiHttp.save(req_url, file_name, download_call)
+        return download_info
 
 if __name__ == '__main__':
     url = 'http://www.xiami.com/song/1773346501?spm=a1z1s.3521865.23309997.1.254APJ'

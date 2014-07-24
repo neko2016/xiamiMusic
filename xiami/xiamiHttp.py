@@ -107,7 +107,8 @@ class XiamiHttp(object):
         else:
             callback_method = cls._schedule
 
-        urllib.urlretrieve(file_url, file_name, callback_method)
+        download_res = urllib.urlretrieve(file_url, file_name, callback_method)
+        return download_res
 
 if __name__ == '__main__':
 
