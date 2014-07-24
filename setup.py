@@ -4,10 +4,11 @@
 __author__ = 'rsj217'
 
 from setuptools import setup, find_packages
+from xiami import __version__
 
 setup(
     name='xiami',
-    version='0.0.3',
+    version=__version__,
     keywords = ('xiami', 'music', 'download'),
     description='This is a xiami music download clinet',
     license = 'MIT License',
