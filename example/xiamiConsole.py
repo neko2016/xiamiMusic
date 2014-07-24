@@ -9,9 +9,9 @@ app = XiaMi(__file__)
 def main():
     print '---------- Welcome to use xiamiMusic Download Tool ----------'
     print
-    app.get_input()
+    input_url = app.get_input()
     print
-    app.run()
+    app.run(input_url)
     i = raw_input('Please Enter AnyKey To Exit ')
 
 if __name__ == '__main__':
