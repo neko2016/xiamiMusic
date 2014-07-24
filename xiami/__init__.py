@@ -87,24 +87,24 @@ class XiaMi(object):
         # 解析json数据，获得歌曲信息
         self.song_info = self._get_song_info(self.song_json)
 
-    def download_mp3(self):
+    def download_mp3(self, download_call=None):
         # 开始下载
         # 下载音频
         sys.stdout.write('####### start download mp3 ####### \n\n')
-        self._download('mp3')
+        self._download('mp3', download_call)
         sys.stdout.write('####### download completed ####### \n\n')
 
-    def download_lyric(self):
+    def download_lyric(self, download_call=None):
 
         # 下载歌词
         sys.stdout.write('####### start download lyric ####### \n\n')
-        self._download('lyric')
+        self._download('lyric', download_call)
         sys.stdout.write('####### download completed ####### \n\n')
 
-    def download_pic(self):
+    def download_pic(self, download_call=None):
         # 下载专辑图片
         sys.stdout.write('####### start download pic ####### \n\n')
-        self._download('picture')
+        self._download('picture', download_call)
         sys.stdout.write('####### download completed ####### \n\n')
 
     def get_input(self):
@@ -125,7 +125,7 @@ class XiaMi(object):
             try:
                 song_id = re.search(pattren, input_url).group(1)
             except Exception, e:
-                print '---- Please Enter A Right Url ----'
+                print '---- Please Enter A Correct Url ----'
                 return False
         else:
             raise StandardError(u'Input Url Error')
@@ -175,7 +175,7 @@ class XiaMi(object):
             # 目录权限 针对 *nix系统 mode:777
             os.chmod(directory_name, stat.S_IRWXU|stat.S_IRWXG|stat.S_IRWXO)
 
-    def _download(self, type='mp3'):
+    def _download(self, type='mp3', download_call=None):
         """ 下载入口
         Args:
             :param type: 下载类型，默认为下载 mp3 音频
@@ -197,7 +197,7 @@ class XiaMi(object):
             format(filename=filename, extension_name=extension_name)
 
         # 下载并保存文件
-        XiamiHttp.save(req_url, file_name)
+        XiamiHttp.save(req_url, file_name, download_call)
 
 if __name__ == '__main__':
     url = 'http://www.xiami.com/song/1773346501?spm=a1z1s.3521865.23309997.1.254APJ'
